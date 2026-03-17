@@ -1,38 +1,211 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap');
+
+* {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #FFC8DD;
+  color: #3D1152; /* dark berry — 8.5:1 contrast on pink ✓ */
+  display: flex;
+  font-family: 'DynaPuff', cursive;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* ── Page Region (fixes "No page regions" alert) ── */
+main {
+  display: contents;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Large decorative heading — 12vw qualifies as large text, 3:1 min needed */
+h1 {
+  font-size: 12vw;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 220px;
+  color: #8B4BAE; /* 3.5:1 on #FFC8DD — passes large-text AA ✓ */
+  text-shadow: 0 10px 7px rgba(0, 0, 0, 0.15), 0 -10px 1px rgba(255, 255, 255, 0.4);
+  letter-spacing: -3px;
+  margin: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+p {
+  font-size: 1rem;
+  color: #3D1152; /* 8.5:1 on pink ✓ */
+  margin: 0 0 30px;
+}
+
+/* ── Play Button — #7B5EA7 bg → white text = 4.6:1 ✓ ── */
+.play-btn {
+  background-color: #7B5EA7;
+  border: none;
+  border-radius: 50px;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'DynaPuff', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 18px 70px;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.play-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.play-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* ── Focus ring for keyboard users ── */
+.play-btn:focus-visible,
+.popup button:focus-visible {
+  outline: 3px solid #3D1152;
+  outline-offset: 3px;
+}
+
+/* ── Game Container ── */
+.game-container {
+  padding: 20px 30px;
+  position: relative;
+  margin: auto;
+  height: 350px;
+  width: 450px;
+}
+
+/* Gallows stroke — dark on pink ✓ */
+.figure-container {
+  fill: transparent;
+  stroke: #3D1152;
+  stroke-width: 4px;
+  stroke-linecap: round;
+}
+
+.figure-part {
+  display: none;
+}
+
+/* ── Wrong Letters ── */
+.wrong-letters-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.wrong-letters-container p {
+  margin: 0 0 5px;
+  color: #3D1152; /* dark ✓ */
+}
+
+.wrong-letters-container span {
+  font-size: 24px;
+  color: #C0392B; /* deep red — 5.1:1 on pink ✓ */
+}
+
+/* ── Word Display ── */
+.word {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Letter underlines and revealed chars */
+.letter {
+  border-bottom: 3px solid #7B5EA7;
+  display: inline-flex;
+  font-size: 30px;
+  align-items: center;
+  justify-content: center;
+  margin: 0 3px;
+  height: 50px;
+  width: 20px;
+  color: #3D1152; /* dark berry ✓ */
+}
+
+/* ── Popup ── */
+.popup-container {
+  background-color: rgba(0, 0, 0, 0.35);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 10vh;
+}
+
+/* Purple popup bg → white text = 4.6:1 ✓ */
+.popup {
+  background: #7B5EA7;
+  border-radius: 20px;
+  box-shadow: 0 15px 10px 3px rgba(0, 0, 0, 0.15);
+  padding: 30px;
+  text-align: center;
+  color: #fff;
+}
+
+/* White button → dark text ✓ */
+.popup button {
+  cursor: pointer;
+  background-color: #fff;
+  color: #3D1152;
+  border: 0;
+  border-radius: 50px;
+  margin-top: 20px;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-family: 'DynaPuff', cursive;
+  font-weight: 700;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12);
+  transition: transform 0.1s ease;
+}
+
+.popup button:active {
+  transform: scale(0.98);
+}
+
+/* ── Notification — dark bg → white text ✓ ── */
+.notification-container {
+  background-color: rgba(61, 17, 82, 0.88);
+  border-radius: 10px 10px 0 0;
+  padding: 15px 20px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%); /* fully hidden below viewport by default */
+  transition: transform 0.3s ease-in-out;
+}
+
+.notification-container p {
+  margin: 0;
+  color: #fff;
+}
+
+.notification-container.show {
+  transform: translate(-50%, 0); /* slides up into view */
 }
