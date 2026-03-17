@@ -1,6 +1,6 @@
 # Hangman Game
 
-A fun and colorful Hangman game built with React — my very first React project, made as a school assignment!
+A fun and colorful Hangman game built with React, my very first React project, made as a school assignment.
 
 ## About the Project
 
